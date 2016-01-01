@@ -1,13 +1,11 @@
-_site
-
 # OS generated files #
 ######################
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
+.DS_Store
 Thumbs.db
-.sass-cache
-*.css.map
+
+# dependencies
+/node_modules
+
+# misc
+npm-debug.log
