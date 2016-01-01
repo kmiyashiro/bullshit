@@ -2,7 +2,7 @@
   "name": "bullshit",
   "version": "1.0.0",
   "description": "New age bullshit generator",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/kmiyashiro/bullshit/issues"
   },
-  "homepage": "https://github.com/kmiyashiro/bullshit#readme"
+  "homepage": "https://github.com/kmiyashiro/bullshit#readme",
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.1.1"
+  }
 }
