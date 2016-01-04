@@ -29,14 +29,23 @@ module.exports = {
     }
   },
 
-  retrieveRandomWordOfType(type) {
-    const rand = util.randomInt(BS_WORDS[type].length - 1);
-    return BS_WORDS[type][rand];
+  getRandomWordOfType(type) {
+    return util.getRandomItem(BS_WORDS[type]);
   },
 
-  generateSentence(topic) {
-    const patternNumber = util.randomInt(this.sentencePool[topic].length - 1);
-    let pattern = this.sentencePool[topic][patternNumber];
+  getRandomTopic() {
+    return util.getRandomItem(SENTENCE_PATTERNS);
+  },
+
+  generateSentence(topicIndex) {
+    const topic = this.sentencePool[topicIndex];
+
+    if (!topic) {
+      throw new TypeError(`No topic for ${topicIndex}`);
+    }
+
+    const patternNumber = util.randomInt(topic.length - 1);
+    let pattern = topic[patternNumber];
 
     if (typeof pattern === 'undefined') {
       /* eslint-disable no-console */
@@ -49,12 +58,12 @@ module.exports = {
     pattern = pattern.split(' ');
 
     // remove the pattern from the sentence pool so it can't be re-used
-    this.removeSentenceFromPool(topic, patternNumber);
+    this.removeSentenceFromPool(topicIndex, patternNumber);
 
     // remove the topic from the sentence pool if there are no sentences left
     // for that particular topic
-    if (this.sentencePool[topic].length === 0) {
-      this.sentencePool.splice(topic, 1);
+    if (topic.length === 0) {
+      this.sentencePool.splice(topicIndex, 1);
     }
 
     let result = '';
@@ -62,7 +71,7 @@ module.exports = {
       // if word matches one of the placeholder words (e.g. nPerson),
       // replace it with a random instance of its type (e.g. warrior)
       if (BS_WORDS.hasOwnProperty(pattern[x])) {
-        result += this.retrieveRandomWordOfType(pattern[x]);
+        result += this.getRandomWordOfType(pattern[x]);
       } else {
         result += pattern[x];
       }
